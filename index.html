@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <style media="screen">
+      html {
+        padding: 10px;
+        background: #0079BF url('taco.png');
+        background-size: 200px 200px;
+        background-repeat: no-repeat;
+        background-position: 264px -55px;
+      }
+
+      #logo {
+        width: 80px;
+        display: block;
+      }
+
+      #title {
+        width: 70%;
+        border: none;
+        border-bottom: 1px solid #BCD9EA;
+        outline: none;
+        background: none;
+        font-size: 24px;
+        color: #BCD9EA;
+      }
+
+      ::-webkit-input-placeholder {
+        color: #5BA4CF;
+      }
+    </style>
+  </head>
+  <body>
+    <img id="logo" src="trello-logo-white.png" />
+    <input type="textfield" id="title" placeholder="Add Card">
+  </body>
+
+  <script>
+    var api = require('./api.js');
+    var $ = require('jQuery');
+
+    $(document).ready(function() {
+      // initial focus
+      $('#title').focus();
+
+      // keystroke handling
+    	$(document).keyup(function(e) {
+
+    		if(e.key === 'Escape') {
+          window.close();
+        } else if (e.key === 'Enter') {
+          var val = $('#title').val();
+          if (val && val.length > 0) {
+            api.addCard(val);
+            $('#title').prop('disabled', true);
+            window.setTimeout(function() {
+              window.close();
+            }, 300);
+
+          }
+        }
+    	});
+    });
+  </script>
+</html>
