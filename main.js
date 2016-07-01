@@ -13,31 +13,6 @@ const OPEN_COMMAND = 'Alt+Return';
 let mainWindow = null;
 let appIcon;
 
-function createWindow () {
-  // Create the browser window.
-  mainWindow = new BrowserWindow({
-    width: 400,
-    height: 100,
-    frame: false,
-    center: true,
-    resizable: false,
-    movable: false,
-  });
-
-  // and load the index.html of the app.
-  mainWindow.loadURL(`file://${__dirname}/index.html`)
-
-  // // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
-
-  // Emitted when the window is closed.
-  mainWindow.on('closed', function () {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    mainWindow = null
-  })
-}
 app.dock.hide();
 
 app.on('ready', () => {
@@ -86,4 +61,30 @@ const createTray = function() {
   ])
   appIcon.setToolTip('Trello Quick Entry')
   appIcon.setContextMenu(contextMenu)
+}
+
+function createWindow () {
+  // Create the browser window.
+  mainWindow = new BrowserWindow({
+    width: 400,
+    height: 100,
+    frame: false,
+    center: true,
+    resizable: false,
+    movable: false,
+  });
+
+  // and load the index.html of the app.
+  mainWindow.loadURL(`file://${__dirname}/index.html`)
+
+  // // Open the DevTools.
+  // mainWindow.webContents.openDevTools()
+
+  // Emitted when the window is closed.
+  mainWindow.on('closed', function () {
+    // Dereference the window object, usually you would store windows
+    // in an array if your app supports multi windows, this is the time
+    // when you should delete the corresponding element.
+    mainWindow = null
+  })
 }

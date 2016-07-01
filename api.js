@@ -6,11 +6,6 @@ const addCard = function(title, done) {
 
   trello.addCard(title, null, user.listId,
     function (error, trelloCard) {
-      if (error) {
-        console.log('Could not add card:', error);
-      } else {
-        console.log('Added card:', trelloCard);
-      }
       done();
     });
 };
