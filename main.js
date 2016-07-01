@@ -11,6 +11,7 @@ const OPEN_COMMAND = 'Alt+Return';
 
 
 let mainWindow = null;
+let appIcon;
 
 function createWindow () {
   // Create the browser window.
@@ -73,11 +74,16 @@ app.on('window-all-closed', function () {
 const createTray = function() {
   const iconName = 'trello-mark-blue.png';
   const iconPath = path.join(__dirname, iconName);
-  const appIcon = new electron.Tray(iconPath);
+  appIcon = new electron.Tray(iconPath);
   const contextMenu = electron.Menu.buildFromTemplate([{
       label: 'Open',
       click: createWindow
-    }])
+    },
+    {
+      label: 'Quit',
+      click: () => app.quit()
+    }
+  ])
   appIcon.setToolTip('Trello Quick Entry')
   appIcon.setContextMenu(contextMenu)
 }
