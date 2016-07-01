@@ -1,4 +1,5 @@
 const electron = require('electron');
+const path = require('path')
 
 // Module to control application life.
 const app = electron.app
@@ -7,6 +8,7 @@ const BrowserWindow = electron.BrowserWindow
 const globalShortcut = electron.globalShortcut;
 
 const OPEN_COMMAND = 'Alt+Return';
+
 
 let mainWindow = null;
 
@@ -35,8 +37,11 @@ function createWindow () {
     mainWindow = null
   })
 }
+app.dock.hide();
 
 app.on('ready', () => {
+  createTray();
+
   // Register a 'CommandOrControl+X' shortcut listener.
   const ret = globalShortcut.register(OPEN_COMMAND, () => {
     if (mainWindow === null) {
@@ -64,10 +69,15 @@ app.on('window-all-closed', function () {
   }
 })
 
-app.on('activate', function () {
-  // On OS X it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  if (mainWindow === null) {
-    createWindow()
-  }
-});
+
+const createTray = function() {
+  const iconName = 'trello-mark-blue.png';
+  const iconPath = path.join(__dirname, iconName);
+  const appIcon = new electron.Tray(iconPath);
+  const contextMenu = electron.Menu.buildFromTemplate([{
+      label: 'Open',
+      click: createWindow
+    }])
+  appIcon.setToolTip('Trello Quick Entry')
+  appIcon.setContextMenu(contextMenu)
+}

@@ -33,7 +33,7 @@
   </head>
   <body>
     <img id="logo" src="trello-logo-white.png" />
-    <input type="textfield" id="title" placeholder="Add Card">
+    <input type="textfield" id="title" placeholder="Title">
   </body>
 
   <script>
@@ -51,13 +51,10 @@
           window.close();
         } else if (e.key === 'Enter') {
           var val = $('#title').val();
-          if (val && val.length > 0) {
-            api.addCard(val);
-            $('#title').prop('disabled', true);
-            window.setTimeout(function() {
-              window.close();
-            }, 300);
 
+          if (val && val.length > 0) {
+            api.addCard(val, () => window.close());
+            $('#title').prop('disabled', true);
           }
         }
     	});

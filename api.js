@@ -1,6 +1,6 @@
 const user = require('./user.js');
 
-const addCard = function(title) {
+const addCard = function(title, done) {
   var Trello = require("trello");
   var trello = new Trello(user.appKey, user.userToken);
 
@@ -11,6 +11,7 @@ const addCard = function(title) {
       } else {
         console.log('Added card:', trelloCard);
       }
+      done();
     });
 };
 
